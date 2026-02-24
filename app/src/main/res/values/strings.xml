@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Laboratory 2</string>
+    <string name="hello_text">Hello, Diana!</string>
+    <string name="press_me">Press me</string>
+    <string name="insert_name">Insert name</string>
+    <string name="clicked_text">You pressed the button!</string>
+    <string name="hello_name">Hello, %1$s!</string>
+</resources>

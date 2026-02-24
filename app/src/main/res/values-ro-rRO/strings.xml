@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Laborator 2</string>
+    <string name="hello_text">Buna, Diana!</string>
+    <string name="press_me">Apasati</string>
+    <string name="insert_name">Introduceti nume</string>
+    <string name="clicked_text">Ai apăsat butonul!</string>
+    <string name="hello_name">Buna, %1$s!</string>
+</resources>
