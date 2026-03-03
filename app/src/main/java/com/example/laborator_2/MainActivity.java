@@ -32,9 +32,9 @@ public class MainActivity extends AppCompatActivity {
             String name = editText.getText().toString().trim();
 
             if (!name.isEmpty()) {
-                textView.setText("Hello, " + name + "!");
+                textView.setText(getString(R.string.hello_name, name));
             } else {
-                textView.setText("Ai apăsat butonul!");
+                textView.setText(getString(R.string.clicked_text));
             }
         });
     }
