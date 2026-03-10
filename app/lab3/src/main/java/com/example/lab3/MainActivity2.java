@@ -38,53 +38,11 @@ public class MainActivity2 extends AppCompatActivity {
 
             Bundle b = new Bundle();
             b.putString("msg", "Salut din SecondActivity!");
-            b.putInt("a", 7);
-            b.putInt("b", 13);
+            b.putInt("a", 3);
+            b.putInt("b", 2);
             i.putExtras(b);
 
             thirdLauncher.launch(i);
         });
-    }
-
-    private static final String TAG = "SecondActivityLC";
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.e(TAG, "onStart - Log.e");
-        Log.w(TAG, "onStart - Log.w");
-        Log.d(TAG, "onStart - Log.d");
-        Log.i(TAG, "onStart - Log.i");
-        Log.v(TAG, "onStart - Log.v");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.e(TAG, "onResume - Log.e");
-        Log.w(TAG, "onResume - Log.w");
-        Log.d(TAG, "onResume - Log.d");
-        Log.i(TAG, "onResume - Log.i");
-        Log.v(TAG, "onResume - Log.v");
-    }
-
-    @Override
-    protected void onPause() {
-        Log.e(TAG, "onPause - Log.e");
-        Log.w(TAG, "onPause - Log.w");
-        Log.d(TAG, "onPause - Log.d");
-        Log.i(TAG, "onPause - Log.i");
-        Log.v(TAG, "onPause - Log.v");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        Log.e(TAG, "onStop - Log.e");
-        Log.w(TAG, "onStop - Log.w");
-        Log.d(TAG, "onStop - Log.d");
-        Log.i(TAG, "onStop - Log.i");
-        Log.v(TAG, "onStop - Log.v");
-        super.onStop();
     }
 }
