@@ -7,38 +7,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#CCFFFFFF"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_marginTop="190dp"
-        android:background="#CCFFFFFF">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Adauga un cadou"
+            android:textColor="#000000"
             android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#000000"/>
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mesaj pentru cadou"
-            android:textColor="#000000"/>
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/etMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Introdu mesajul"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:textColorHint="#555555" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Greutate (grame)"
-            android:textColor="#000000"/>
+            android:textColor="#000000" />
 
         <EditText
             android:id="@+id/etWeight"
@@ -46,26 +46,41 @@
             android:layout_height="wrap_content"
             android:hint="Ex: 500"
             android:inputType="number"
-            android:textColor="#000000"/>
+            android:textColor="#000000"
+            android:textColorHint="#555555" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Data cadoului"
+            android:textColor="#000000" />
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="true"
+            android:spinnersShown="false"
+            android:scaleX="0.9"
+            android:scaleY="0.9" />
 
         <CheckBox
             android:id="@+id/cbOpened"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadoul este impachetat"
-            android:textColor="#000000"/>
+            android:textColor="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tipul cadoului"
-            android:textColor="#000000"/>
+            android:textColor="#000000" />
 
         <Spinner
             android:id="@+id/spObjectType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000000"/>
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnSaveCadou"

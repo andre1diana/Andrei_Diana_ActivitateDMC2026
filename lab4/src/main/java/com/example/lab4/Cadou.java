@@ -1,21 +1,26 @@
 package com.example.lab4;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Cadou implements Serializable {
     private String message;
     private boolean wrapped;
     private int weight;
     private Objects objectType;
+    private Date deliveryDate;
 
     public Cadou() {
     }
 
-    public Cadou(String message, boolean opened, int weight, Objects objectType) {
+    public Cadou(String message, boolean wrapped, int weight, Objects objectType, Date deliveryDate) {
         this.message = message;
-        this.wrapped = opened;
+        this.wrapped = wrapped;
         this.weight = weight;
         this.objectType = objectType;
+        this.deliveryDate = deliveryDate;
     }
 
     public String getMessage() {
@@ -34,6 +39,10 @@ public class Cadou implements Serializable {
         return objectType;
     }
 
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
     public void setMessage(String message) {
         this.message = message;
     }
@@ -50,13 +59,22 @@ public class Cadou implements Serializable {
         this.objectType = objectType;
     }
 
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
+
     @Override
     public String toString() {
-        return "Cadou{" +
-                "message='" + message + '\'' +
-                ", wrapped=" + wrapped +
-                ", weight=" + weight +
-                ", objectType=" + objectType +
-                '}';
+        String formattedDate = "-";
+        if (deliveryDate != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            formattedDate = sdf.format(deliveryDate);
+        }
+
+        return "Mesaj: " + message +
+                " | Împachetat: " + (wrapped ? "Da" : "Nu") +
+                " | Greutate: " + weight + " g" +
+                " | Tip: " + objectType +
+                " | Data: " + formattedDate;
     }
 }

@@ -1,19 +1,42 @@
 package com.example.lab4;
 
-import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final int REQUEST_CODE_CADOU = 100;
-
     private Button btnAddCadou;
-    private TextView tvMessage, tvOpened, tvWeight, tvObjectType;
+    private ListView lvCadouri;
+
+    private ArrayList<Cadou> listaCadouri;
+    private ArrayAdapter<Cadou> adapter;
+
+    private final ActivityResultLauncher<Intent> launcher =
+            registerForActivityResult(
+                    new ActivityResultContracts.StartActivityForResult(),
+                    result -> {
+                        if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                            Bundle bundle = result.getData().getExtras();
+                            if (bundle != null) {
+                                Cadou cadou = (Cadou) bundle.getSerializable("cadou");
+                                if (cadou != null) {
+                                    listaCadouri.add(cadou);
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        }
+                    }
+            );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,31 +44,44 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnAddCadou = findViewById(R.id.btnAddCadou);
+        lvCadouri = findViewById(R.id.lvCadouri);
 
-        tvMessage = findViewById(R.id.tvMessage);
-        tvOpened = findViewById(R.id.tvOpened);
-        tvWeight = findViewById(R.id.tvWeight);
-        tvObjectType = findViewById(R.id.tvObjectType);
+        listaCadouri = new ArrayList<>();
+
+        adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                listaCadouri
+        );
+
+        lvCadouri.setAdapter(adapter);
 
         btnAddCadou.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, GetPresent.class);
-            startActivityForResult(intent, REQUEST_CODE_CADOU);
+            launcher.launch(intent);
         });
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        lvCadouri.setOnItemClickListener((parent, view, position, id) -> {
+            Cadou cadou = listaCadouri.get(position);
+            Toast.makeText(
+                    MainActivity.this,
+                    cadou.toString(),
+                    Toast.LENGTH_SHORT
+            ).show();
+        });
 
-        if (requestCode == REQUEST_CODE_CADOU && resultCode == RESULT_OK && data != null) {
-            Cadou cadou = (Cadou) data.getSerializableExtra("cadou");
+        lvCadouri.setOnItemLongClickListener((parent, view, position, id) -> {
+            Cadou cadou = listaCadouri.get(position);
+            listaCadouri.remove(position);
+            adapter.notifyDataSetChanged();
 
-            if (cadou != null) {
-                tvMessage.setText("Mesaj: " + cadou.getMessage());
-                tvOpened.setText("Deschis: " + (cadou.isWrapped() ? "Da" : "Nu"));
-                tvWeight.setText("Greutate: " + cadou.getWeight() + " g");
-                tvObjectType.setText("Tip obiect: " + cadou.getObjectType().name());
-            }
-        }
+            Toast.makeText(
+                    MainActivity.this,
+                    "Cadoul a fost șters: " + cadou.getMessage(),
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            return true;
+        });
     }
 }
