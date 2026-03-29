@@ -37,14 +37,39 @@ public class GetPresent extends AppCompatActivity {
         spObjectType = findViewById(R.id.spObjectType);
         btnSaveCadou = findViewById(R.id.btnSaveCadou);
 
+        // Configurare Spinner
         ArrayAdapter<Objects> adapter = new ArrayAdapter<>(
                 this,
                 android.R.layout.simple_spinner_item,
                 Objects.values()
         );
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spObjectType.setAdapter(adapter);
+
+        Intent intent = getIntent();
+
+        if (intent.hasExtra("cadou")) {
+            Cadou cadou = intent.getParcelableExtra("cadou");
+
+            etMessage.setText(cadou.getMessage());
+            etWeight.setText(String.valueOf(cadou.getWeight()));
+            cbOpened.setChecked(cadou.isWrapped());
+
+            spObjectType.setSelection(cadou.getObjectType().ordinal());
+
+            if (cadou.getDeliveryDate() != null) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(cadou.getDeliveryDate());
+
+                datePicker.updateDate(
+                        cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),
+                        cal.get(Calendar.DAY_OF_MONTH)
+                );
+            }
+            // Schimbăm textul butonului pentru a indica editarea
+            btnSaveCadou.setText("Salvează modificările");
+        }
 
         btnSaveCadou.setOnClickListener(v -> saveCadou());
     }
@@ -85,9 +110,12 @@ public class GetPresent extends AppCompatActivity {
         Cadou cadou = new Cadou(message, wrapped, weight, objectType, deliveryDate);
 
         Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("cadou", cadou);
-        intent.putExtras(bundle);
+        intent.putExtra("cadou", cadou);
+
+        // Verificăm dacă am primit o poziție (înseamnă că edităm)
+        if (getIntent().hasExtra("position")) {
+            intent.putExtra("position", getIntent().getIntExtra("position", -1));
+        }
 
         setResult(RESULT_OK, intent);
         finish();

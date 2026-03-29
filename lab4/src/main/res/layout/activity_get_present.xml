@@ -59,16 +59,17 @@
             android:id="@+id/datePicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:calendarViewShown="true"
-            android:spinnersShown="false"
-            android:scaleX="0.9"
-            android:scaleY="0.9" />
+            android:background="@drawable/rounded_corner"
+            android:calendarTextColor="@color/black"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"/>
 
         <CheckBox
             android:id="@+id/cbOpened"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cadoul este impachetat"
+            android:buttonTint="#000000"
             android:textColor="#000000" />
 
         <TextView
@@ -80,13 +81,17 @@
         <Spinner
             android:id="@+id/spObjectType"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:backgroundTint="#000000" />
 
         <Button
             android:id="@+id/btnSaveCadou"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Salveaza cadoul" />
+            android:layout_marginTop="20dp"
+            android:text="Salveaza cadoul"
+            />
 
     </LinearLayout>
 

@@ -1,11 +1,14 @@
 package com.example.lab4;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Cadou implements Serializable {
+public class Cadou implements Parcelable {
     private String message;
     private boolean wrapped;
     private int weight;
@@ -13,6 +16,42 @@ public class Cadou implements Serializable {
     private Date deliveryDate;
 
     public Cadou() {
+    }
+
+
+    protected Cadou(Parcel in) {
+        message = in.readString();
+        wrapped = in.readByte() != 0;
+        weight = in.readInt();
+        objectType = Objects.valueOf(in.readString());
+        long time = in.readLong();
+        deliveryDate = time == -1 ? null : new Date(time);
+    }
+
+    public static final Creator<Cadou> CREATOR = new Creator<Cadou>() {
+        @Override
+        public Cadou createFromParcel(Parcel in) {
+            return new Cadou(in);
+        }
+
+        @Override
+        public Cadou[] newArray(int size) {
+            return new Cadou[size];
+        }
+    };
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(message);
+        dest.writeByte((byte) (wrapped ? 1 : 0));
+        dest.writeInt(weight);
+        dest.writeString(objectType.name());
+        dest.writeLong(deliveryDate != null ? deliveryDate.getTime() : -1);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public Cadou(String message, boolean wrapped, int weight, Objects objectType, Date deliveryDate) {

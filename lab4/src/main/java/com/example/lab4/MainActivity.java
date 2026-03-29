@@ -19,8 +19,9 @@ public class MainActivity extends AppCompatActivity {
     private ListView lvCadouri;
 
     private ArrayList<Cadou> listaCadouri;
-    private ArrayAdapter<Cadou> adapter;
+    // private ArrayAdapter<Cadou> adapter;
 
+    private CadouAdapter adapter;
     private final ActivityResultLauncher<Intent> launcher =
             registerForActivityResult(
                     new ActivityResultContracts.StartActivityForResult(),
@@ -28,9 +29,22 @@ public class MainActivity extends AppCompatActivity {
                         if (result.getResultCode() == RESULT_OK && result.getData() != null) {
                             Bundle bundle = result.getData().getExtras();
                             if (bundle != null) {
-                                Cadou cadou = (Cadou) bundle.getSerializable("cadou");
+                                // Cadou cadou = (Cadou) bundle.getSerializable("cadou");
+                                Cadou cadou = result.getData().getParcelableExtra("cadou");
+//                                if (cadou != null) {
+//                                    listaCadouri.add(cadou);
+//                                    adapter.notifyDataSetChanged();
+//                                }
                                 if (cadou != null) {
-                                    listaCadouri.add(cadou);
+
+                                    int position = result.getData().getIntExtra("position", -1);
+
+                                    if (position != -1) {
+                                        listaCadouri.set(position, cadou); // EDIT
+                                    } else {
+                                        listaCadouri.add(cadou); // ADD
+                                    }
+
                                     adapter.notifyDataSetChanged();
                                 }
                             }
@@ -48,12 +62,13 @@ public class MainActivity extends AppCompatActivity {
 
         listaCadouri = new ArrayList<>();
 
-        adapter = new ArrayAdapter<>(
-                this,
-                android.R.layout.simple_list_item_1,
-                listaCadouri
-        );
+//        adapter = new ArrayAdapter<>(
+//                this,
+//                android.R.layout.simple_list_item_1,
+//                listaCadouri
+//        );
 
+        adapter = new CadouAdapter(this, listaCadouri);
         lvCadouri.setAdapter(adapter);
 
         btnAddCadou.setOnClickListener(v -> {
@@ -61,13 +76,23 @@ public class MainActivity extends AppCompatActivity {
             launcher.launch(intent);
         });
 
+//        lvCadouri.setOnItemClickListener((parent, view, position, id) -> {
+//            Cadou cadou = listaCadouri.get(position);
+//            Toast.makeText(
+//                    MainActivity.this,
+//                    cadou.toString(),
+//                    Toast.LENGTH_SHORT
+//            ).show();
+//        });
+
         lvCadouri.setOnItemClickListener((parent, view, position, id) -> {
             Cadou cadou = listaCadouri.get(position);
-            Toast.makeText(
-                    MainActivity.this,
-                    cadou.toString(),
-                    Toast.LENGTH_SHORT
-            ).show();
+
+            Intent intent = new Intent(MainActivity.this, GetPresent.class);
+            intent.putExtra("cadou", cadou);
+            intent.putExtra("position", position);
+
+            launcher.launch(intent);
         });
 
         lvCadouri.setOnItemLongClickListener((parent, view, position, id) -> {
