@@ -43,9 +43,9 @@ public class CadouAdapter extends ArrayAdapter<Cadou> {
         }
 
         tvDetails.setText(
-                "Greutate: " + cadou.getWeight() +
-                        " | Tip: " + cadou.getObjectType() +
-                        " | Data: " + data
+                "• Greutate: " + cadou.getWeight() + "\n" +
+                        "• Tip: " + cadou.getObjectType() + "\n" +
+                        "• Data: " + data
         );
 
         return convertView;

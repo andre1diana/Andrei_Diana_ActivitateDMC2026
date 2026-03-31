@@ -39,8 +39,14 @@
                 android:layout_height="wrap_content"
                 android:text="Adauga cadou"
                 android:textAllCaps="false"
-                android:paddingTop="12dp"
-                android:paddingBottom="12dp"
+                android:layout_marginBottom="10dp" />
+
+            <Button
+                android:id="@+id/btnSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Setări"
+                android:textAllCaps="false"
                 android:layout_marginBottom="20dp" />
 
             <TextView

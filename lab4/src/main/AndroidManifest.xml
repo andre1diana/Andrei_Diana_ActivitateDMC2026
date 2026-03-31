@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Laborator_2">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".GetPresent"
             android:exported="false" />
         <activity

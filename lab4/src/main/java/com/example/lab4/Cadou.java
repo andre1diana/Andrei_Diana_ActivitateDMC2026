@@ -3,12 +3,13 @@ package com.example.lab4;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Cadou implements Parcelable {
+public class Cadou implements Serializable, Parcelable {
     private String message;
     private boolean wrapped;
     private int weight;
@@ -111,7 +112,7 @@ public class Cadou implements Parcelable {
         }
 
         return "Mesaj: " + message +
-                " | Împachetat: " + (wrapped ? "Da" : "Nu") +
+                " | Impachetat: " + (wrapped ? "Da" : "Nu") +
                 " | Greutate: " + weight + " g" +
                 " | Tip: " + objectType +
                 " | Data: " + formattedDate;
