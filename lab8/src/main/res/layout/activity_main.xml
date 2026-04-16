@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SQLite Gift Manager"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/btnGoToAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add New Gift"
+        android:backgroundTint="#4CAF50"
+        android:textColor="@color/white"/>
+
+    <Button
+        android:id="@+id/btnSelectAll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="All Gifts"/>
+
+    <!-- Search by message -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/etSearchMessage"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Exact message"/>
+        <Button
+            android:id="@+id/btnSearchByMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Search"/>
+    </LinearLayout>
+
+    <!-- Weight range -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/etMinWeight"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Min"
+            android:inputType="number"/>
+        <EditText
+            android:id="@+id/etMaxWeight"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Max"
+            android:inputType="number"/>
+        <Button
+            android:id="@+id/btnSearchByRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Range"/>
+    </LinearLayout>
+
+    <!-- Delete -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/etDeleteThreshold"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Delete under (gr)"/>
+        <Button
+            android:id="@+id/btnDeleteUnder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"/>
+    </LinearLayout>
+
+    <!-- Update -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/etStartingLetter"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:hint="Message start letter"/>
+        <Button
+            android:id="@+id/btnIncrementWeight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+1 Unit"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Database Results:"
+        android:textStyle="italic"
+        android:layout_marginTop="10dp"/>
+
+    <ListView
+        android:id="@+id/lvGifts"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#F5F5F5"/>
+
+</LinearLayout>
