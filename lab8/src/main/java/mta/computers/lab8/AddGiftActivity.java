@@ -37,7 +37,7 @@ public class AddGiftActivity extends AppCompatActivity {
             String weightStr = etWeight.getText().toString().trim();
 
             if (message.isEmpty() || weightStr.isEmpty()) {
-                Toast.makeText(this, "Completează toate câmpurile!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Completeaza toate campurile!", Toast.LENGTH_SHORT).show();
                 return;
             }
 
