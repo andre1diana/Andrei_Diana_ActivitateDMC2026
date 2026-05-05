@@ -15,14 +15,14 @@ public class AddGiftActivity extends AppCompatActivity {
     private EditText etMessage, etWeight;
     private Spinner spType;
     private CheckBox cbWrapped;
-    private DatabaseHelper dbHelper;
+    private AppDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_gift);
 
-        dbHelper = new DatabaseHelper(this);
+        db = AppDatabase.getInstance(this);
 
         etMessage = findViewById(R.id.etMessage);
         etWeight = findViewById(R.id.etWeight);
@@ -45,8 +45,8 @@ public class AddGiftActivity extends AppCompatActivity {
             Objects type = (Objects) spType.getSelectedItem();
             boolean wrapped = cbWrapped.isChecked();
 
-            Gift newGift = new Gift(message, weight, type, wrapped);
-            long id = dbHelper.insertGift(newGift);
+            Gift newGift = new Gift(message, weight, type.name(), wrapped);
+            long id = db.giftDao().insert(newGift);
 
             if (id != -1) {
                 Toast.makeText(this, "Salvat cu succes!", Toast.LENGTH_SHORT).show();

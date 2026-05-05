@@ -15,10 +15,9 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private DatabaseHelper dbHelper;
+    private AppDatabase db;
     private EditText etSearchMessage, etMinWeight, etMaxWeight, etDeleteThreshold, etStartingLetter;
     private ListView lvGifts;
-    private List<Gift> giftList;
     private ArrayAdapter<String> adapter;
     private List<String> displayList;
 
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        dbHelper = new DatabaseHelper(this);
+        db = AppDatabase.getInstance(this);
 
         // UI Initialization
         lvGifts = findViewById(R.id.lvGifts);
@@ -46,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnSelectAll).setOnClickListener(v -> {
-            refreshList(dbHelper.getAllGifts());
+            refreshList(db.giftDao().getAllGifts());
         });
 
         findViewById(R.id.btnSearchByMessage).setOnClickListener(v -> {
-            Gift gift = dbHelper.getGiftByMessage(etSearchMessage.getText().toString());
+            Gift gift = db.giftDao().getGiftByMessage(etSearchMessage.getText().toString());
             List<Gift> result = new ArrayList<>();
             if (gift != null) result.add(gift);
             refreshList(result);
@@ -60,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             try {
                 int min = Integer.parseInt(etMinWeight.getText().toString());
                 int max = Integer.parseInt(etMaxWeight.getText().toString());
-                refreshList(dbHelper.getGiftsInWeightRange(min, max));
+                refreshList(db.giftDao().getGiftsInWeightRange(min, max));
             } catch (Exception e) {
                 Toast.makeText(this, "Invalid data", Toast.LENGTH_SHORT).show();
             }
@@ -69,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnDeleteUnder).setOnClickListener(v -> {
             try {
                 int threshold = Integer.parseInt(etDeleteThreshold.getText().toString());
-                dbHelper.deleteGiftsWithWeightLessThan(threshold);
-                refreshList(dbHelper.getAllGifts());
+                db.giftDao().deleteGiftsWithWeightLessThan(threshold);
+                refreshList(db.giftDao().getAllGifts());
             } catch (Exception e) {
                 Toast.makeText(this, "Invalid threshold", Toast.LENGTH_SHORT).show();
             }
@@ -79,18 +78,18 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.btnIncrementWeight).setOnClickListener(v -> {
             String letter = etStartingLetter.getText().toString();
             if (!letter.isEmpty()) {
-                dbHelper.incrementWeightForMessagesStartingWith(letter);
-                refreshList(dbHelper.getAllGifts());
+                db.giftDao().incrementWeightForMessagesStartingWith(letter + "%");
+                refreshList(db.giftDao().getAllGifts());
             }
         });
 
-        refreshList(dbHelper.getAllGifts());
+        refreshList(db.giftDao().getAllGifts());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        refreshList(dbHelper.getAllGifts());
+        refreshList(db.giftDao().getAllGifts());
     }
 
     private void refreshList(List<Gift> gifts) {

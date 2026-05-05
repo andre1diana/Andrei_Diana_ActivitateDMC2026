@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "mta.computers.lab8"
+    namespace = "mta.computers.lab10"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "mta.computers.lab8"
+        applicationId = "mta.computers.lab10"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -36,11 +36,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
-    
-    // Room
-    implementation(libs.room.runtime)
-    annotationProcessor(libs.room.compiler)
-
+    implementation(libs.okhttp)
+    implementation(libs.gson)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
